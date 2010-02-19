@@ -1,0 +1,21 @@
+DISPLAY boot.txt
+
+DEFAULT lenny_i386_install
+
+LABEL lenny_i386_install
+        kernel debian/lenny/i386/linux
+        append vga=normal initrd=debian/lenny/i386/initrd.gz  --
+LABEL lenny_i386_linux
+        kernel debian/lenny/i386/linux
+        append vga=normal initrd=debian/lenny/i386/initrd.gz  --
+
+LABEL lenny_i386_expert
+        kernel debian/lenny/i386/linux
+        append priority=low vga=normal initrd=debian/lenny/i386/initrd.gz  --
+
+LABEL lenny_i386_rescue
+        kernel debian/lenny/i386/linux
+        append vga=normal initrd=debian/lenny/i386/initrd.gz  rescue/enable=true --
+
+PROMPT 1
+TIMEOUT 0

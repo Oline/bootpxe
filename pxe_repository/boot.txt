@@ -1,0 +1,7 @@
+- Boot Menu -
+=============
+ 
+lenny_i386_install
+lenny_i386_linux
+lenny_i386_expert
+lenny_i386_rescue
