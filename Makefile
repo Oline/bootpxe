@@ -15,7 +15,11 @@ help:
 	@echo "list:    list all file and type in Pxe configuration"
 	@echo "install: install configuration in directory server "
 	@echo "         for ftpd daemon"
+	@echo "deliver: create a tar gz file with all code.."
 
+deliver:
+	@cd $(TOPDIR) && @tar cvzf $(TMP_CFG) .
+	@echo file $(TMP_CFG) is available.....
 
 # define current location
 list:
