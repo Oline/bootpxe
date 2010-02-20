@@ -28,3 +28,7 @@ install:
 	sudo rm -rf $(XINETD_SRV)
 	sudo mkdir $(XINETD_SRV)
 	cd $(XINETD_SRV) && sudo tar xvzf $(TMP_CFG)
+	sudo chown -R nobody.nogroup $(XINETD_SRV)	
+	find $(XINETD_SRV) -type d |xargs sudo chmod a-rw,u+rwx,g+rx,o+rx
+	find $(XINETD_SRV) -type f |xargs sudo chmod a-rw,u+rw,g+r,o+r
+	rm $(TMP_CFG)
