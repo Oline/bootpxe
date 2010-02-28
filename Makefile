@@ -12,10 +12,14 @@ help:
 	@echo "Documentation and available targets"
 	@echo ""
 	@echo "help:    this documentation"
+	@echo "clean:   suppress all unused files (*~)"
 	@echo "list:    list all file and type in Pxe configuration"
 	@echo "install: install configuration in directory server "
 	@echo "         for ftpd daemon"
 	@echo "deliver: create a tar gz file with all code.."
+
+clean:
+	@rm -rf $(TOPDIR)/*~
 
 deliver:
 	@cd $(TOPDIR) && @tar cvzf $(TMP_CFG) .
