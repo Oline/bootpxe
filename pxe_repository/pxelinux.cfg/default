@@ -1,5 +1,5 @@
 DISPLAY boot.txt
-SERIAL  0 38400
+SERIAL  0 115200
 PROMPT  1
 TIMEOUT 0
 
@@ -14,7 +14,7 @@ label alix2d3
 LABEL lenny_i386_netinst
   menu label install Debian Lenny Netinst
   kernel debian/lenny/i386/linux
-  append initrd=debian/lenny/i386/initrd.gz console=ttyS0,38400n8
+  append initrd=debian/lenny/i386/initrd.gz console=ttyS0,115200n8
 
 LABEL lenny_i386_linux
         kernel debian/lenny/i386/linux

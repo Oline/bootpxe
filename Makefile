@@ -1,14 +1,14 @@
 # define current location for git files
 TOPDIR      = $(shell \pwd)/pxe_repository
 # define local temporary file because ACL when launching on nfs 
-TMP_CFG     = /tmp/cfg_pxe.tar.gz
+TMP_CFG     = /tmp/cfg_pxe_alix2d3.tar.gz
 # Warning, following line extracted for correct config in xinetd ...
 # Please verify in your configuration
 XINETD_SRV  = /srv/tftp
 
 
 help:
-	@echo 'version 1.0'
+	@echo 'version 1.1 alix2d3 configuration Makefile '
 	@echo "Documentation and available targets"
 	@echo ""
 	@echo "help:    this documentation"
@@ -21,9 +21,9 @@ help:
 clean:
 	@rm -rf $(TOPDIR)/*~
 
-deliver:
-	@cd $(TOPDIR) && @tar cvzf $(TMP_CFG) .
-	@echo file $(TMP_CFG) is available.....
+deliver: clean
+	@cd $(TOPDIR) && tar --create --gzip --file  $(TMP_CFG) .
+	@echo " ====> file $(TMP_CFG) is available....."
 
 # define current location
 list:
@@ -40,3 +40,4 @@ install:
 	find $(XINETD_SRV) -type d |xargs sudo chmod a-rw,u+rwx,g+rx,o+rx
 	find $(XINETD_SRV) -type f |xargs sudo chmod a-rw,u+rw,g+r,o+r
 	rm $(TMP_CFG)
+	sync
