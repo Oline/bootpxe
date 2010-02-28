@@ -13,18 +13,5 @@ label alix2d3
 
 LABEL lenny_i386_netinst
   menu label install Debian Lenny Netinst
-  kernel debian/lenny/i386/linux
-  append initrd=debian/lenny/i386/initrd.gz console=ttyS0,115200n8
-
-LABEL lenny_i386_linux
-        kernel debian/lenny/i386/linux
-        append vga=normal initrd=debian/lenny/i386/initrd.gz  --
-
-LABEL lenny_i386_expert
-        kernel debian/lenny/i386/linux
-        append priority=low vga=normal initrd=debian/lenny/i386/initrd.gz  --
-
-LABEL lenny_i386_rescue
-        kernel debian/lenny/i386/linux
-        append vga=normal initrd=debian/lenny/i386/initrd.gz  rescue/enable=true --
-
+  kernel debian/lenny/i386/linux_kernel_debian_netinst.2.6.26-2-486
+  append initrd=debian/lenny/i386/linux_kernel_debian_netinst_initrd.2.6.26-2-486.gz console=ttyS0,115200n8

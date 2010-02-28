@@ -22,8 +22,11 @@ clean:
 	@rm -rf $(TOPDIR)/*~
 
 deliver: clean
+	@echo "step 1/3 creating $(TMP_CFG) in progress..."
 	@cd $(TOPDIR) && tar --create --gzip --file  $(TMP_CFG) .
-	@echo " ====> file $(TMP_CFG) is available....."
+	@echo "step 2/3 testing $(TMP_CFG) in progress..."
+	@tar --verbose --gzip --list --file $(TMP_CFG)
+	@echo "step 3/3 file $(TMP_CFG) is available"
 
 # define current location
 list:
