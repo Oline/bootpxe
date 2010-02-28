@@ -2,6 +2,8 @@
 TOPDIR      = $(shell \pwd)/pxe_repository
 # define local temporary file because ACL when launching on nfs 
 TMP_CFG     = /tmp/cfg_pxe_alix2d3.tar.gz
+# define local temporary file for creating a git archive 
+TMP_CFG_GIT = /tmp/cfg_pxe_alix2d3_git_archive.git.tar.gz
 # Warning, following line extracted for correct config in xinetd ...
 # Please verify in your configuration
 XINETD_SRV  = /srv/tftp
@@ -17,9 +19,21 @@ help:
 	@echo "install: install configuration in directory server "
 	@echo "         for ftpd daemon"
 	@echo "deliver: create a tar gz file with all code.."
+	@echo "doc    : list of major doc on the net for Alix board"
+	@echo "git_arch : create git archive in tar gz format"
 
 clean:
 	@rm -rf $(TOPDIR)/*~
+
+git_arch: clean
+	@echo "step 1/3 creating $(TMP_CFG_GIT) in progress..."
+	@cd $(TOPDIR) && git archive \
+		--format=tar \
+		--prefix=cfg_pxe_alix2d3.git/  HEAD | gzip > $(TMP_CFG_GIT)
+	@echo "step 2/3 testing $(TMP_CFG_GIT) in progress..."
+	@tar --verbose --gzip --list --file $(TMP_CFG_GIT)
+	@echo "step 3/3 file $(TMP_CFG_GIT) is available"
+
 
 deliver: clean
 	@echo "step 1/3 creating $(TMP_CFG) in progress..."
@@ -44,3 +58,6 @@ install:
 	find $(XINETD_SRV) -type f |xargs sudo chmod a-rw,u+rw,g+r,o+r
 	rm $(TMP_CFG)
 	sync
+
+doc:
+	@echo "http://www.pcengines.ch/alix.htm for main page"	
