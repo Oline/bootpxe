@@ -8,6 +8,7 @@ TMP_CFG_GIT = /tmp/cfg_pxe_alix2d3_git_archive.git.tar.gz
 # Please verify in your configuration
 XINETD_SRV  = /srv/tftp
 
+NETBOOT_CONFIG = /tmp/debian_netboot_squeeze_i386.tar.gz
 
 help:
 	@echo 'version 1.1 alix2d3 configuration Makefile '
@@ -18,12 +19,19 @@ help:
 	@echo "list:    list all file and type in Pxe configuration"
 	@echo "install: install configuration in directory server "
 	@echo "         for ftpd daemon"
+	@echo "download: download original files from Debian squeeze release"
 	@echo "deliver: create a tar gz file with all code.."
 	@echo "doc    : list of major doc on the net for Alix board"
 	@echo "git_arch : create git archive in tar gz format"
 
 clean:
 	@rm -rf $(TOPDIR)/*~
+
+
+download:
+	wget \
+		http://ftp.fr.debian.org/debian/dists/squeeze/main/installer-i386/current/images/netboot/netboot.tar.gz \
+		-O $(NETBOOT_CONFIG)
 
 git_arch: clean
 	@echo "step 1/3 creating $(TMP_CFG_GIT) in progress..."

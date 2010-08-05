@@ -10,5 +10,5 @@ LABEL lenny_i386_netinst
   append initrd=debian/lenny/i386/linux_kernel_debian_netinst_initrd.2.6.26-2-486.gz vga=normal console=ttyS0,115200n8 --
 
 # extrated from following location :
-# http://ftp.nl.debian.org/debian/dists/squeeze/main/installer-i386/current/images/netboot/
+# http://ftp.nl.debian.org/debian/dists/squeeze/main/installer-i386/current/images/netboot/netboot.tar.gz
 
