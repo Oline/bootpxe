@@ -1,24 +1,32 @@
 # define current location for git files
-TOPDIR      = $(shell \pwd)/pxe_repository
+TOPDIR      	= $(shell \pwd)/pxe_repository
 # define local temporary file because ACL when launching on nfs 
-TMP_CFG     = /tmp/cfg_pxe_alix2d3.tar.gz
+TMP_CFG     	= /tmp/cfg_pxe_alix2d3.tar.gz
 # define local temporary file for creating a git archive 
-TMP_CFG_GIT = /tmp/cfg_pxe_alix2d3_git_archive.git.tar.gz
+TMP_CFG_GIT 	= /tmp/cfg_pxe_alix2d3_git_archive.git.tar.gz
 # Warning, following line extracted for correct config in xinetd ...
 # Please verify in your configuration
-XINETD_SRV  = /srv/tftp
+XINETD_SRV  	= /srv/tftp
 
-NETBOOT_CONFIG = /tmp/debian_netboot_squeeze_i386.tar.gz
+DIR_DOWNLOAD 	= $(TOPDIR)/download
+DIR_DISTRIB 	= $(TOPDIR)/distrib
+NETBOOT_SQUEEZE = $(DIR_DOWNLOAD)/debian_netboot_squeeze_i386.tar.gz
+NETBOOT_LENNY 	= $(DIR_DOWNLOAD)/debian_netboot_lenny_i386.tar.gz
 
 help:
 	@echo 'version 1.1 alix2d3 configuration Makefile '
 	@echo "Documentation and available targets"
 	@echo ""
+	@echo "step -1- Please first update and/or download correct target"
+	@echo "  with make download"
+	@echo ""
+	@echo "step -2- install download netboot config in tftp server"
+	@echo "  with make tftp_srv"
+	@echo ""
 	@echo "help:    this documentation"
 	@echo "clean:   suppress all unused files (*~)"
-	@echo "list:    list all file and type in Pxe configuration"
-	@echo "install: install configuration in directory server "
-	@echo "         for ftpd daemon"
+	@echo "tftp_srv: install configuration in directory server "
+	@echo "          for ftpd daemon in: < $(XINETD_SRV) >"
 	@echo "download: download original files from Debian squeeze release"
 	@echo "deliver: create a tar gz file with all code.."
 	@echo "doc    : list of major doc on the net for Alix board"
@@ -29,9 +37,18 @@ clean:
 
 
 download:
-	wget \
-		http://ftp.fr.debian.org/debian/dists/squeeze/main/installer-i386/current/images/netboot/netboot.tar.gz \
-		-O $(NETBOOT_CONFIG)
+	mkdir -p $(DIR_DOWNLOAD)
+##	wget \
+##		http://ftp.fr.debian.org/debian/dists/squeeze/main/installer-i386/current/images/netboot/netboot.tar.gz \
+##		-O $(NETBOOT_SQUEEZE)
+##	wget \
+##		http://ftp.fr.debian.org/debian/dists/lenny/main/installer-i386/current/images/netboot/netboot.tar.gz \
+##		-O $(NETBOOT_LENNY)
+	ls -altr $(TOPDIR)/download
+	mkdir -p $(DIR_DISTRIB)/lenny
+	cd $(DIR_DISTRIB)/lenny && tar xvzf $(NETBOOT_LENNY)
+	mkdir -p $(DIR_DISTRIB)/squeeze
+	cd $(DIR_DISTRIB)/squeeze &&  tar xvzf $(NETBOOT_SQUEEZE)
 
 git_arch: clean
 	@echo "step 1/3 creating $(TMP_CFG_GIT) in progress..."
@@ -55,7 +72,7 @@ list:
 	du -s $(TOPDIR)
 	find $(TOPDIR) -type f |xargs file
 
-install:
+tftp_srv:
 	rm -f $(TMP_CFG)
 	cd $(TOPDIR) && tar cvzf $(TMP_CFG) .
 	sudo rm -rf $(XINETD_SRV)
