@@ -1,5 +1,5 @@
 # define current location for git files
-TOPDIR      	= $(shell \pwd)/pxe_repository
+TOPDIR      	= $(shell \pwd)
 # define local temporary file because ACL when launching on nfs 
 TMP_CFG     	= /tmp/cfg_pxe_alix2d3.tar.gz
 # define local temporary file for creating a git archive 
@@ -9,7 +9,7 @@ TMP_CFG_GIT 	= /tmp/cfg_pxe_alix2d3_git_archive.git.tar.gz
 XINETD_SRV  	= /srv/tftp
 
 DIR_DOWNLOAD 	= $(TOPDIR)/download
-DIR_DISTRIB 	= $(TOPDIR)/distrib
+DIR_DISTRIB 	= $(DIR_DOWNLOAD)/distrib
 NETBOOT_SQUEEZE = $(DIR_DOWNLOAD)/debian_netboot_squeeze_i386.tar.gz
 NETBOOT_LENNY 	= $(DIR_DOWNLOAD)/debian_netboot_lenny_i386.tar.gz
 
@@ -18,37 +18,38 @@ help:
 	@echo "Documentation and available targets"
 	@echo ""
 	@echo "step -1- Please first update and/or download correct target"
-	@echo "  with make download"
+	@echo "   make load"
 	@echo ""
 	@echo "step -2- install download netboot config in tftp server"
-	@echo "  with make tftp_srv"
+	@echo "  make tftp_srv"
 	@echo ""
-	@echo "help:    this documentation"
-	@echo "clean:   suppress all unused files (*~)"
+	@echo "help:     this documentation"
+	@echo "clean:    suppress all unused files (*~)"
 	@echo "tftp_srv: install configuration in directory server "
-	@echo "          for ftpd daemon in: < $(XINETD_SRV) >"
-	@echo "download: download original files from Debian squeeze release"
-	@echo "deliver: create a tar gz file with all code.."
-	@echo "doc    : list of major doc on the net for Alix board"
-	@echo "git_arch : create git archive in tar gz format"
+	@echo "            for ftpd daemon in: < $(XINETD_SRV) >"
+	@echo "load:     download original files from Debian squeeze release"
+	@echo "deliver:  create a tar gz file with all code..."
+	@echo "            BUT without external download (please use make download)"
+	@echo "doc    :  list of major doc on the net for Alix board"
+	@echo "git_arch: create git archive in tar gz format"
 
 clean:
-	@rm -rf $(TOPDIR)/*~
+	@rm -rf $(TOPDIR)/*~ $(DIR_DOWNLOAD)
 
 
-download:
-	mkdir -p $(DIR_DOWNLOAD)
-##	wget \
-##		http://ftp.fr.debian.org/debian/dists/squeeze/main/installer-i386/current/images/netboot/netboot.tar.gz \
-##		-O $(NETBOOT_SQUEEZE)
-##	wget \
-##		http://ftp.fr.debian.org/debian/dists/lenny/main/installer-i386/current/images/netboot/netboot.tar.gz \
-##		-O $(NETBOOT_LENNY)
-	ls -altr $(TOPDIR)/download
+load:
+	mkdir -p $(DIR_DISTRIB)
+	wget \
+		http://ftp.fr.debian.org/debian/dists/squeeze/main/installer-i386/current/images/netboot/netboot.tar.gz \
+		-O $(NETBOOT_SQUEEZE)
+	wget \
+		http://ftp.fr.debian.org/debian/dists/lenny/main/installer-i386/current/images/netboot/netboot.tar.gz \
+		-O $(NETBOOT_LENNY)
 	mkdir -p $(DIR_DISTRIB)/lenny
 	cd $(DIR_DISTRIB)/lenny && tar xvzf $(NETBOOT_LENNY)
 	mkdir -p $(DIR_DISTRIB)/squeeze
 	cd $(DIR_DISTRIB)/squeeze &&  tar xvzf $(NETBOOT_SQUEEZE)
+	ls -altr $(DIR_DOWNLOAD)
 
 git_arch: clean
 	@echo "step 1/3 creating $(TMP_CFG_GIT) in progress..."
@@ -62,7 +63,15 @@ git_arch: clean
 
 deliver: clean
 	@echo "step 1/3 creating $(TMP_CFG) in progress..."
-	@cd $(TOPDIR) && tar --create --gzip --file  $(TMP_CFG) .
+	rm $(TMP_CFG)
+	cd $(TOPDIR) && \
+		tar \
+			--exclude=$(DIR_DISTRIB) 	\
+			--create \
+			--gzip \
+			--file  \
+			$(TMP_CFG)
+			.
 	@echo "step 2/3 testing $(TMP_CFG) in progress..."
 	@tar --verbose --gzip --list --file $(TMP_CFG)
 	@echo "step 3/3 file $(TMP_CFG) is available"
