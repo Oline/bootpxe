@@ -1,3 +1,11 @@
+# Abstract: 
+# This makefile is used to create a litle application in order to
+# install a tftpd.in server for pxe boot.
+#
+# Author: Jean Marc LACROIX (jeanmarc.lacroix@free.fr)
+# date: samedi 18 septembre 2010, 07:51:35 (UTC+0200)
+
+
 # define current location for git files
 TOPDIR      	= $(shell \pwd)
 # define local temporary file because ACL when launching on nfs 
@@ -29,17 +37,16 @@ help:
 	@echo "tftp_srv: install configuration in directory server "
 	@echo "            for ftpd daemon in: < $(XINETD_SRV) >"
 	@echo "load:     download original files from Debian squeeze release"
-	@echo "deliver:  create a tar gz file with all code..."
-	@echo "            BUT without external download (please use make download)"
+	@echo "deliver:  create a tar gz file with all code and git archive..."
+	@echo "            BUT without external download (please use make load)"
 	@echo "doc    :  list of major doc on the Internet for Alix board"
 	@echo ""
 
 clean:
 	@rm -rf $(TOPDIR)/*~ $(DIR_DOWNLOAD) $(DIR_TFTP_DISTRIB)
 
-
 load:
-	mkdir -p $(DIR_DISTRIB)
+	@mkdir -p $(DIR_DISTRIB)
 	wget \
 		http://ftp.fr.debian.org/debian/dists/squeeze/main/installer-i386/current/images/netboot/netboot.tar.gz \
 		-O $(NETBOOT_SQUEEZE)
@@ -52,7 +59,7 @@ load:
 deliver: clean
 	@echo "step 1/3 creating $(TMP_CFG) in progress..."
 	@rm -f $(TMP_CFG)
-	cd $(TOPDIR) && \
+	@cd $(TOPDIR) && \
 		tar \
 			--exclude=$(DIR_DISTRIB) \
 			--create \
@@ -60,7 +67,7 @@ deliver: clean
 			--file  \
 			$(TMP_CFG) .
 	@echo "step 2/3 testing $(TMP_CFG) in progress..."
-	@tar --verbose --gzip --list --file $(TMP_CFG)
+	@tar --gzip --list --file $(TMP_CFG)
 	@echo "step 3/3 file $(TMP_CFG) is available"
 
 # define current location, only for debug operation
@@ -80,9 +87,10 @@ tftp_srv:
 	@echo "step 2/6 extracted file from $(NETBOOT_SQUEEZE) in progress...."
 	@cd $(DIR_TFTP_DISTRIB)/squeeze && tar xfz $(NETBOOT_SQUEEZE)
 # Alix runs with console, so we must enable console, then overlap
-# default Debian config file with my test file ...
+# default Debian config file with my default file ...
 	@echo "step 3/6 patching local install dir in progress...."
 	@cp $(DIR_TFTP)/default $(DIR_TFTP_DISTRIB)/lenny/pxelinux.cfg/default
+# never forget binarybootstrap
 	@cd $(DIR_TFTP_DISTRIB) && ln -s lenny/pxelinux.0 pxelinux.0
 # assuming we are working on nfs with  root squashing ACL, then first
 # make a local copy  in user (non  root) access  in /tmp, and  second,

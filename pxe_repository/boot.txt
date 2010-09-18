@@ -1,4 +1,0 @@
-- Boot Menu -
-=============
- 
-lenny_i386_install
