@@ -1,4 +1,4 @@
-# Abstract: 
+# Abstract:
 # This makefile is used to create a litle application in order to
 # install a tftpd.in server for pxe boot.
 #
@@ -8,7 +8,7 @@
 
 # define current location for git files
 TOPDIR      	= $(shell \pwd)
-# define local temporary file because ACL when launching on nfs 
+# define local temporary file because ACL when launching on nfs
 TMP_CFG     	= /tmp/cfg_pxe_alix2d3.tar.gz
 # Warning, following line extracted for correct config in xinetd ...
 # Please verify in your configuration
@@ -47,14 +47,9 @@ clean:
 
 load:
 	@mkdir -p $(DIR_DISTRIB)
-	wget \
-		http://ftp.fr.debian.org/debian/dists/squeeze/main/installer-i386/current/images/netboot/netboot.tar.gz \
-		-O $(NETBOOT_SQUEEZE)
-	wget \
-		http://ftp.fr.debian.org/debian/dists/lenny/main/installer-i386/current/images/netboot/netboot.tar.gz \
-		-O $(NETBOOT_LENNY)
+	wget http://ftp.fr.debian.org/debian/dists/squeeze/main/installer-i386/current/images/netboot/netboot.tar.gz -O $(NETBOOT_SQUEEZE)
+	wget http://ftp.fr.debian.org/debian/dists/lenny/main/installer-i386/current/images/netboot/netboot.tar.gz -O $(NETBOOT_LENNY)
 	ls -altr $(DIR_DISTRIB)
-
 
 deliver: clean
 	@echo "step 1/3 creating $(TMP_CFG) in progress..."
@@ -75,7 +70,7 @@ list:
 	@du -s $(TOPDIR)
 	@find $(TOPDIR) -type f |xargs file
 
-# install now all code in correct location, it is assume that 
+# install now all code in correct location, it is assume that
 # xinetd and in.tftpd are already installed
 tftp_srv:
 	@rm -rf $(DIR_TFTP_DISTRIB)
@@ -104,16 +99,99 @@ tftp_srv:
 	@sudo mkdir $(XINETD_SRV)
 	@echo "step 5/6 installing internal tar.gz file in $(XINETD_SRV) in progress...."
 	@cd $(XINETD_SRV) && sudo tar xzf $(TMP_CFG)
-	@sudo chown -R nobody.nogroup $(XINETD_SRV)	
+	@sudo chown -R nobody.nogroup $(XINETD_SRV)
 	@find $(XINETD_SRV) -type d |xargs sudo chmod a-rw,u+rwx,g+rx,o+rx
 	@find $(XINETD_SRV) -type f |xargs sudo chmod a-rw,u+rw,g+r,o+r
 	@rm $(TMP_CFG)
 	@sync
 	@echo "step 6/6 server in.tftpd is available now...."
-# in order to test it, please use atftp Debian package with following 
+# in order to test it, please use atftp Debian package with following
 # command
 #  atftp --get --remote-file  pxelinux.0 --local-file  /tmp/ttt --verbose  srvtftp-2
 
 
 doc:
-	@echo "http://www.pcengines.ch/alix.htm for main page"	
+	@echo "http://www.pcengines.ch/alix.htm for main page"
+
+############################################################################################
+################################# OpenSuse #################################################
+############################################################################################
+
+opensuse: opensuse121
+
+opensuse121: opensuse121_init opensuse121_get
+
+opensuse121_init: #opensuse121_clean
+	mkdir -p opensuse-installer/12.1/i386/
+	mkdir -p opensuse-installer/12.1/x86_64/
+
+opensuse121_get:
+# may add a check here if any file already exist, warn about it and don't do anything
+	wget -O opensuse-installer/12.1/i386/initrd http://download.opensuse.org/distribution/12.1/repo/oss/boot/i386/loader/initrd
+	wget -O opensuse-installer/12.1/i386/linux http://download.opensuse.org/distribution/12.1/repo/oss/boot/i386/loader/linux
+	wget -O opensuse-installer/12.1/x86_64/initrd http://download.opensuse.org/distribution/12.1/repo/oss/boot/x86_64/loader/initrd
+	wget -O opensuse-installer/12.1/x86_64/linux http://download.opensuse.org/distribution/12.1/repo/oss/boot/x86_64/loader/linux
+
+opensuse121_clean:
+	rm -f opensuse-installer/12.1/i386/initrd
+	rm -f opensuse-installer/12.1/i386/linux
+	rm -f opensuse-installer/12.1/x86_64/initrd
+	rm -f opensuse-installer/12.1/x86_64/linux
+
+opensuse121_distclean: opensuse121_clean
+	rm -rf opensuse-installer
+
+
+
+############################################################################################
+################################# FreeBSD ##################################################
+############################################################################################
+
+freebsd: freebsd90
+
+freebsd90: freebsd90_vga
+
+freebsd90_serial:
+
+freebsd90_vga:
+
+freebsd90_init:
+
+freebsd90_get:
+
+freebsd90_clean:
+
+freebsd90_distclean: freebsd90_clean
+
+############################################################################################
+################################# OpenBSD ##################################################
+############################################################################################
+
+openbsd: openbsd51
+
+openbsd51: openbsd51_vga
+
+openbsd51_serial:
+
+openbsd51_vga: openbsd51_init openbsd51_get
+
+openbsd51_init:
+
+openbsd51_get:
+	wget -O pxeboot http://ftp.fr.openbsd.org/pub/OpenBSD/5.1/i386/pxeboot
+	wget -O bsd.rd http://ftp.fr.openbsd.org/pub/OpenBSD/5.1/i386/bsd.rd
+	wget -O pxeboot64 http://ftp.fr.openbsd.org/pub/OpenBSD/5.1/amd64/pxeboot
+	wget -O bsd.rd64 http://ftp.fr.openbsd.org/pub/OpenBSD/5.1/amd64/bsd.rd
+
+openbsd51_clean:
+	rm -f pxeboot
+	rm -f bsd.rd
+	rm -f pxeboot64
+	rm -f bsd.rd64
+
+openbsd51_distclean: openbsd51_clean
+
+openbsd_doc:
+	@echo "http://www.openbsd.org/cgi-bin/man.cgi?query=pxeboot&sektion=8&arch=i386"
+
+############################################################################################
