@@ -1,13 +1,53 @@
 DISPLAY boot.txt
-SERIAL  0 115200
-PROMPT  1
-TIMEOUT 10
 
-DEFAULT lenny_i386_netinst
+DEFAULT memtest
+PROMPT 1
+TIMEOUT 100
+ONTIMEOUT local
+
 
 LABEL lenny_i386_netinst
   kernel lenny/debian-installer/i386/linux
-  append initrd=lenny/debian-installer/i386/initrd.gz vga=normal console=ttyS0,115200n8 --
+  append initrd=lenny/debian-installer/i386/initrd.gz vga=normal --
+
+LABEL debian
+        kernel debian-installer/i386/linux
+        append vga=normal initrd=debian-installer/i386/initrd.gz --
+
+LABEL debian_expert
+        kernel debian-installer/i386/linux
+        append priority=low vga=normal initrd=debian-installer/i386/initrd.gz --
+
+LABEL debian64
+        kernel debian-installer/amd64/linux
+        append vga=normal initrd=debian-installer/amd64/initrd.gz --
+
+LABEL debian64_expert
+        kernel debian-installer/amd64/linux
+        append priority=low vga=normal initrd=debian-installer/amd64/initrd.gz --
+
+LABEL opensuse
+        kernel opensuse-installer/i386/linux
+        append vga=normal initrd=opensuse-installer/i386/initrd install=http://download.opensuse.org/distribution/12.1/repo/oss/
+# install=nfs://host:/media/nfs/os/opensuse/distribution/11.3/repo/oss/ --
+
+LABEL opensuse64
+        kernel opensuse-installer/x86_64/linux64
+        append vga=normal initrd=opensuse-installer/x86_64/initrd64 install=http://download.opensuse.org/distribution/12.1/repo/oss/
+# install=nfs://host:/media/nfs/os/opensuse/distribution/11.3/repo/oss/ --
+#   kernel /boot/vmlinuz.install usessh=1 sshpassword="12345678" install=http://download.opensuse.org/factory/repo/oss/ hostip=192.139.88.209 netmask=255.255.255.0 gateway=192.139.88.254 nameserver=192.139.88.1
+
+# LABEL netbootme
+#         kernel netbootme.bin
+
+# LABEL grub
+#   KERNEL pxegrub
+
+LABEL memtest
+        kernel memtest86+-4.20
+
+LABEL local
+  LOCALBOOT 0
 
 # extrated from following location :
 # http://ftp.nl.debian.org/debian/dists/squeeze/main/installer-i386/current/images/netboot/
