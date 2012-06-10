@@ -3,13 +3,26 @@
 # install a tftpd.in server for pxe boot.
 #
 # Authors: Jean Marc LACROIX (jeanmarc.lacroix@free.fr)
-#          Sylvain Leroy (sylvain@unmondelibre.fr)
-# date: mercredi 6 juin 2012, 17:20:35 (UTC+0200)
+#          Sylvain LEROY (sylvain@unmondelibre.fr)
+# date: mercredi 10 juin 2012, 21:20:35 (UTC+0200)
 
 # Notes :
 #  - verifier les droits des fichiers lors de leur installation sur le serveur
+#  - ajouter un fichier "version.info" pour connaitre la version du projet en cours
+#    d'utilisation, ainsi que les versions des distributions intallée (ou non).
+#  - dans le cas d'un ajout d'une cible "update/upgrade" il serait peut-etre nécessaire
+#    de conserver un autre fichier de version par distrib/pour tout le système.
+#    (Un INDEX à la manière des ports FreeBSD).
 
-
+###
+# Notes : Should be added to a README file.
+###
+# To use these elements, you must deploy a tftp server binary (depending on your 
+# distribution). atftp or similar will do the job.
+# You must also configure your DHCP server to allow bootp protocol, fill in your 
+# "next-server" variable with the tftp server's IP address, and the boot file's 
+# filename to send as the boot binary for the PXE clients
+###
 
 # define current location for git files
 TOPDIR      	= $(shell \pwd)
