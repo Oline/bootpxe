@@ -1,0 +1,22 @@
+To use these Makefiles, you must deploy a tftp server binary (depending on your 
+distribution). atftp or similar will do the job.
+You must also configure your DHCP server to allow bootp protocol, fill in your 
+"next-server" variable with the tftp server's IP address, and the boot file's 
+filename to send as the boot binary for the PXE clients
+
+### Software requirements
+
+- GNU make
+- wget
+
+### prerequis (need to be translated)
+
+- Hard drive space needed : XX MB (may be computed when a full download will be done)
+
+### Howto use it
+
+make help
+
+### Configuration
+
+if you want to have specific configurations, you must copy default (or default_serial) to a file named using the MAC address of the computer MAC controller and change the option from that file.

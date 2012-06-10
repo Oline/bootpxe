@@ -1,0 +1,4 @@
+- It may be interesting to split the starting to be huge Makefile in severals smallers Makefiles like:
+  Makefile : includer of the other Makefiles.mk
+  Distrib.mk : Makefile specific to a distribution
+In that way, people would be able to control exactly which target are available by disabling the ability to install other OSes

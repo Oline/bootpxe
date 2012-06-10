@@ -14,16 +14,6 @@
 #    de conserver un autre fichier de version par distrib/pour tout le système.
 #    (Un INDEX à la manière des ports FreeBSD).
 
-###
-# Notes : Should be added to a README file.
-###
-# To use these elements, you must deploy a tftp server binary (depending on your 
-# distribution). atftp or similar will do the job.
-# You must also configure your DHCP server to allow bootp protocol, fill in your 
-# "next-server" variable with the tftp server's IP address, and the boot file's 
-# filename to send as the boot binary for the PXE clients
-###
-
 # define current location for git files
 TOPDIR      	= $(shell \pwd)
 # define local temporary file because ACL when launching on nfs

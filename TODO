@@ -1,0 +1,3 @@
+### TODO list
+
+- wget is currently the only supported downloader. It might be handy to also have ftp, curl, and maybe others to be supported.
