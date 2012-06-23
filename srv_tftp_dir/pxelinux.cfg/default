@@ -27,14 +27,14 @@ LABEL debian64_expert
         append priority=low vga=normal initrd=debian-installer/amd64/initrd.gz --
 
 LABEL opensuse
-        kernel opensuse-installer/i386/linux
-        append vga=normal initrd=opensuse-installer/i386/initrd install=http://download.opensuse.org/distribution/12.1/repo/oss/
-# install=nfs://host:/media/nfs/os/opensuse/distribution/11.3/repo/oss/ --
+        kernel distrib/opensuse-installer/12.1/i386/linux
+        append vga=normal initrd=distrib/opensuse-installer/12.1/i386/initrd install=http://download.opensuse.org/distribution/12.1/repo/oss/
+# install=nfs://host:/media/nfs/os/opensuse/distribution/12.1/repo/oss/ --
 
 LABEL opensuse64
-        kernel opensuse-installer/x86_64/linux64
-        append vga=normal initrd=opensuse-installer/x86_64/initrd64 install=http://download.opensuse.org/distribution/12.1/repo/oss/
-# install=nfs://host:/media/nfs/os/opensuse/distribution/11.3/repo/oss/ --
+        kernel distrib/opensuse-installer/12.1/x86_64/linux
+        append vga=normal initrd=distrib/opensuse-installer/12.1/x86_64/initrd install=http://download.opensuse.org/distribution/12.1/repo/oss/
+# install=nfs://host:/media/nfs/os/opensuse/distribution/12.1/repo/oss/ --
 #   kernel /boot/vmlinuz.install usessh=1 sshpassword="12345678" install=http://download.opensuse.org/factory/repo/oss/ hostip=192.139.88.209 netmask=255.255.255.0 gateway=192.139.88.254 nameserver=192.139.88.1
 
 # LABEL netbootme
@@ -44,7 +44,7 @@ LABEL opensuse64
 #   KERNEL pxegrub
 
 LABEL memtest
-        kernel memtest86+-4.20
+        kernel distrib/memtest86+-4.20
 
 LABEL local
   LOCALBOOT 0

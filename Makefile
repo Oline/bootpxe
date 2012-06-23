@@ -232,7 +232,7 @@ opensuse121_init: #opensuse121_clean
 	mkdir -p $(DIR_TFTP_DISTRIB)/opensuse-installer/12.1/i386/
 	mkdir -p $(DIR_TFTP_DISTRIB)/opensuse-installer/12.1/x86_64/
 
-opensuse121_get:
+opensuse121_get: opensuse121_init
 # may add a check here if any file already exist, warn about it and don't do anything
 	wget -O $(DIR_TFTP_DISTRIB)/opensuse-installer/12.1/i386/initrd http://download.opensuse.org/distribution/12.1/repo/oss/boot/i386/loader/initrd
 	wget -O $(DIR_TFTP_DISTRIB)/opensuse-installer/12.1/i386/linux http://download.opensuse.org/distribution/12.1/repo/oss/boot/i386/loader/linux
@@ -286,7 +286,7 @@ openbsd_distclean: openbsd51_distclean
 
 ### 5.1
 
-openbsd51: openbsd51_init
+openbsd51: openbsd51_init openbsd51_get
 
 # openbsd51_serial:
 
@@ -294,7 +294,7 @@ openbsd51: openbsd51_init
 
 openbsd51_init:
 
-openbsd51_get:
+openbsd51_get: openbsd51_init
 # may add a check here if any file already exist, warn about it and don't do anything
 	wget -O $(DIR_TFTP_DISTRIB)/openbsd51 http://ftp.fr.openbsd.org/pub/OpenBSD/5.1/i386/pxeboot
 	wget -O $(DIR_TFTP_DISTRIB)/bsd.rd http://ftp.fr.openbsd.org/pub/OpenBSD/5.1/i386/bsd.rd
@@ -316,11 +316,11 @@ openbsd_doc:
 ################################# memtest86+ ###############################################
 ############################################################################################
 
-memtest: memtest_init
+memtest: memtest_init memtest_get
 
 memtest_init:
 
-memtest_get:
+memtest_get: memtest_init
 	wget http://www.memtest.org/download/4.20/memtest86+-4.20.bin.gz -O $(DIR_TFTP_DISTRIB)/memtest86+-4.20.bin.gz
 	gunzip $(DIR_TFTP_DISTRIB)/memtest86+-4.20.bin.gz
 	mv $(DIR_TFTP_DISTRIB)/memtest86+-4.20.bin $(DIR_TFTP_DISTRIB)/memtest86+-4.20
