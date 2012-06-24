@@ -100,7 +100,9 @@ help:
 	@echo ""
 
 clean:
-	@rm -rf $(TOPDIR)/*~ $(DIR_DOWNLOAD) $(DIR_TFTP_DISTRIB)
+	rm -rf $(TOPDIR)/*~
+	rm -rf $(DIR_DOWNLOAD)
+	rm -rf $(DIR_TFTP_DISTRIB)
 
 load:
 	@mkdir -p $(DIR_DISTRIB)
