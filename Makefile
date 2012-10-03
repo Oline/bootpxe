@@ -176,143 +176,25 @@ doc:
 ################################# Debian ###################################################
 ############################################################################################
 
-debian: debian6
-
-debian_init:
-
-debian_get:
-
-debian_clean:
-
-debian_distclean: debian_clean
-
-### 6 - Squeze
-
-debian6: debian6_init
-
-debian6_init:
-
-debian6_get:
-
-debian6_clean:
-
-debian6_distclean: debian6_clean
-
-### 5 - Lenny
-
-debian5: debian5_init
-
-debian5_init:
-
-debian5_get:
-	wget http://ftp.fr.debian.org/debian/dists/squeeze/main/installer-i386/current/images/netboot/netboot.tar.gz -O $(NETBOOT_SQUEEZE)
-	wget http://ftp.fr.debian.org/debian/dists/lenny/main/installer-i386/current/images/netboot/netboot.tar.gz -O $(NETBOOT_LENNY)
-
-debian5_clean:
-
-debian5_distclean: debian5_clean
+-include debian.mk
 
 ############################################################################################
 ################################# OpenSuse #################################################
 ############################################################################################
 
-opensuse: opensuse121
-
-opensuse_init: opensuse121_init
-
-opensuse_get: opensuse121_get
-
-opensuse_clean: opensuse121_clean
-
-opensuse_distclean: opensuse121_distclean
-
-### 12.1
-
-opensuse121: opensuse121_init opensuse121_get
-
-opensuse121_init: #opensuse121_clean
-	mkdir -p $(DIR_TFTP_DISTRIB)/opensuse-installer/12.1/i386/
-	mkdir -p $(DIR_TFTP_DISTRIB)/opensuse-installer/12.1/x86_64/
-
-opensuse121_get: opensuse121_init
-# may add a check here if any file already exist, warn about it and don't do anything
-	wget -O $(DIR_TFTP_DISTRIB)/opensuse-installer/12.1/i386/initrd http://download.opensuse.org/distribution/12.1/repo/oss/boot/i386/loader/initrd
-	wget -O $(DIR_TFTP_DISTRIB)/opensuse-installer/12.1/i386/linux http://download.opensuse.org/distribution/12.1/repo/oss/boot/i386/loader/linux
-	wget -O $(DIR_TFTP_DISTRIB)/opensuse-installer/12.1/x86_64/initrd http://download.opensuse.org/distribution/12.1/repo/oss/boot/x86_64/loader/initrd
-	wget -O $(DIR_TFTP_DISTRIB)/opensuse-installer/12.1/x86_64/linux http://download.opensuse.org/distribution/12.1/repo/oss/boot/x86_64/loader/linux
-
-opensuse121_clean:
-	rm -f opensuse-installer/12.1/i386/initrd
-	rm -f opensuse-installer/12.1/i386/linux
-	rm -f opensuse-installer/12.1/x86_64/initrd
-	rm -f opensuse-installer/12.1/x86_64/linux
-
-opensuse121_distclean: opensuse121_clean
-	rm -rf opensuse-installer
-
-
+-include opensuse.mk
 
 ############################################################################################
 ################################# FreeBSD ##################################################
 ############################################################################################
 
-freebsd: freebsd90
-
-freebsd90: freebsd90_vga
-
-freebsd90_serial:
-
-freebsd90_vga:
-
-freebsd90_init:
-
-freebsd90_get:
-
-freebsd90_clean:
-
-freebsd90_distclean: freebsd90_clean
+-include freebsd.mk
 
 ############################################################################################
 ################################# OpenBSD ##################################################
 ############################################################################################
 
-openbsd: openbsd51
-
-openbsd_init: openbsd51_init
-
-openbsd_get: openbsd51_get
-
-openbsd_clean: openbsd51_clean
-
-openbsd_distclean: openbsd51_distclean
-
-### 5.1
-
-openbsd51: openbsd51_init openbsd51_get
-
-# openbsd51_serial:
-
-# openbsd51_vga: openbsd51_init openbsd51_get
-
-openbsd51_init:
-
-openbsd51_get: openbsd51_init
-# may add a check here if any file already exist, warn about it and don't do anything
-	wget -O $(DIR_TFTP_DISTRIB)/openbsd51 http://ftp.fr.openbsd.org/pub/OpenBSD/5.1/i386/pxeboot
-	wget -O $(DIR_TFTP_DISTRIB)/bsd.rd http://ftp.fr.openbsd.org/pub/OpenBSD/5.1/i386/bsd.rd
-	wget -O $(DIR_TFTP_DISTRIB)/openbsd51_64 http://ftp.fr.openbsd.org/pub/OpenBSD/5.1/amd64/pxeboot
-	wget -O $(DIR_TFTP_DISTRIB)/bsd.rd64 http://ftp.fr.openbsd.org/pub/OpenBSD/5.1/amd64/bsd.rd
-
-openbsd51_clean:
-	rm -f $(DIR_TFTP_DISTRIB)/openbsd51
-	rm -f $(DIR_TFTP_DISTRIB)/bsd.rd
-	rm -f $(DIR_TFTP_DISTRIB)/openbsd5164
-	rm -f $(DIR_TFTP_DISTRIB)/bsd.rd64
-
-openbsd51_distclean: openbsd51_clean
-
-openbsd_doc:
-	@echo "http://www.openbsd.org/cgi-bin/man.cgi?query=pxeboot&sektion=8&arch=i386"
+-include openbsd.mk
 
 ############################################################################################
 ################################# memtest86+ ###############################################
