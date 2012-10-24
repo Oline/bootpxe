@@ -28,12 +28,12 @@ opensuse121_get: opensuse121_init
 	wget -O $(DIR_TFTP_DISTRIB)/opensuse-installer/12.1/x86_64/linux http://download.opensuse.org/distribution/12.1/repo/oss/boot/x86_64/loader/linux
 
 opensuse121_clean:
-	rm -f opensuse-installer/12.1/i386/initrd
-	rm -f opensuse-installer/12.1/i386/linux
-	rm -f opensuse-installer/12.1/x86_64/initrd
-	rm -f opensuse-installer/12.1/x86_64/linux
+	rm -f $(DIR_TFTP_DISTRIB)/opensuse-installer/12.1/i386/initrd
+	rm -f $(DIR_TFTP_DISTRIB)/opensuse-installer/12.1/i386/linux
+	rm -f $(DIR_TFTP_DISTRIB)/opensuse-installer/12.1/x86_64/initrd
+	rm -f $(DIR_TFTP_DISTRIB)/opensuse-installer/12.1/x86_64/linux
 
 opensuse121_distclean: opensuse121_clean
-	rm -rf opensuse-installer
+	rm -rf $(DIR_TFTP_DISTRIB)/opensuse-installer
 
 ############################################################################################
