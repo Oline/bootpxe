@@ -14,21 +14,7 @@
 #    de conserver un autre fichier de version par distrib/pour tout le système.
 #    (Un INDEX à la manière des ports FreeBSD).
 
-# define current location for git files
-TOPDIR      	= $(shell \pwd)
-# define local temporary file because ACL when launching on nfs
-TMP_CFG     	= /tmp/cfg_pxe_alix2d3.tar.gz
-# Warning, following line extracted for correct config in xinetd ...
-# Please verify in your configuration
-XINETD_SRV  	= /srv/tftp
-
-DIR_DOWNLOAD 	= $(TOPDIR)/download
-DIR_DISTRIB 	= $(DIR_DOWNLOAD)/distrib
-NETBOOT_SQUEEZE = $(DIR_DOWNLOAD)/debian_netboot_squeeze_i386.tar.gz
-NETBOOT_LENNY 	= $(DIR_DOWNLOAD)/debian_netboot_lenny_i386.tar.gz
-# internal build directory for server
-DIR_TFTP        = $(TOPDIR)/srv_tftp_dir
-DIR_TFTP_DISTRIB= $(TOPDIR)/srv_tftp_dir/distrib
+include makefile.vars
 
 #	 @echo 'version 1.1 alix2d3 configuration Makefile '
 #	 @echo "Documentation and available targets"

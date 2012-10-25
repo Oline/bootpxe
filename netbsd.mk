@@ -28,7 +28,7 @@ netbsd60_get: netbsd60_init
 # may add a check here if any file already exist, warn about it and don't do anything
 	wget -O $(DIR_TFTP_DISTRIB)/netbsd-installer/6.0/i386/netbsd.gz ftp://ftp.netbsd.org/pub/NetBSD/NetBSD-6.0/i386/binary/kernel/netbsd-INSTALL.gz
 	wget -O $(DIR_TFTP_DISTRIB)/base.tgz ftp://iso.fr.netbsd.org/pub/NetBSD/NetBSD-6.0/i386/binary/sets/base.tgz
-	tar -xf $(DIR_TFTP_DISTRIB)/base.tgz -C $(DIR_TFTP_DISTRIB)/netbsd-installer/6.0/i386/ ./usr/mdec/pxeboot_ia32.bin
+	tar -xzf $(DIR_TFTP_DISTRIB)/base.tgz -C $(DIR_TFTP_DISTRIB)/netbsd-installer/6.0/i386/ ./usr/mdec/pxeboot_ia32.bin
 	mv $(DIR_TFTP_DISTRIB)/netbsd-installer/6.0/i386/usr/mdec/pxeboot_ia32.bin $(DIR_TFTP_DISTRIB)/netbsd-installer/6.0/i386/pxeboot_ia32.0
 	rm -rf $(DIR_TFTP_DISTRIB)/netbsd-installer/6.0/i386/usr
 #	tar -xf $(DIR_TFTP_DISTRIB)/base.tgz -C $(DIR_TFTP_DISTRIB)/netbsd-installer/6.0/i386/ ./usr/mdec/pxeboot_ia32_com0.bin
