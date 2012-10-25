@@ -38,7 +38,7 @@ LABEL opensuse64
 #   kernel /boot/vmlinuz.install usessh=1 sshpassword="12345678" install=http://download.opensuse.org/factory/repo/oss/ hostip=192.139.88.209 netmask=255.255.255.0 gateway=192.139.88.254 nameserver=192.139.88.1
 
 LABEL netbsd60
-  kernel distrib/netbsd-installer/6.0/i386/pxeboot_ia32.bin
+  kernel distrib/netbsd-installer/6.0/i386/pxeboot_ia32.0
 
 # LABEL netbootme
 #         kernel netbootme.bin
