@@ -3,4 +3,7 @@
 - wget is currently the only supported downloader. It might be handy to also have ftp, curl, and maybe others to be supported.
 - Several languages support for i18n
 
-- Tests definition and inplementation
+- Tests definition and implementation
+
+- UBCD would be great
+- Partition Magic would be too
