@@ -2,6 +2,23 @@
 ################################# OpenBSD ##################################################
 ############################################################################################
 
+openbsd_help:
+	@echo "############################################################################################"
+	@echo "### OpenBSD"
+	@echo "############################################################################################"
+	@echo ""
+	@echo "Preparation directives for OpenBSD 5.6"
+	@echo ""
+	@echo "If you want to install another version, you may use openbsdXX_ACTION patern, where XX is the version number: 5.1 -> 51"
+	@echo ""
+	@echo "Available version: 5.6"
+	@echo ""
+	@echo "openbsd_init: create the initial directory structure in the tftp server root directory"
+	@echo "openbsd_get: create the initial directory structure in the tftp server root directory"
+	@echo "openbsd_clean: create the initial directory structure in the tftp server root directory"
+	@echo "openbsd_distclean: create the initial directory structure in the tftp server root directory"
+	@echo ""
+
 openbsd: openbsd51
 
 openbsd_init: openbsd51_init

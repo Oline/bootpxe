@@ -2,6 +2,23 @@
 ################################# Debian ###################################################
 ############################################################################################
 
+debian_help:
+	@echo "############################################################################################"
+	@echo "### Debian"
+	@echo "############################################################################################"
+	@echo ""
+	@echo "Preparation directives for Debian 6: Squeeze"
+	@echo ""
+	@echo "If you want to install another version, you may use debianX_ACTION patern, where X is the version number: 6"
+	@echo ""
+	@echo "Available version: 5, 6, 7" # may use oldstable, stable, testing and unstable
+	@echo ""
+	@echo "debian_init: create the initial directory structure in the tftp server root directory"
+	@echo "debian_get: create the initial directory structure in the tftp server root directory"
+	@echo "debian_clean: create the initial directory structure in the tftp server root directory"
+	@echo "debian_distclean: create the initial directory structure in the tftp server root directory"
+	@echo ""
+
 debian: debian6
 
 debian_init:

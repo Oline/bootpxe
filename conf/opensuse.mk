@@ -2,6 +2,23 @@
 ################################# OpenSuse #################################################
 ############################################################################################
 
+opensuse_help:
+	@echo "############################################################################################"
+	@echo "### OpenSuse"
+	@echo "############################################################################################"
+	@echo ""
+	@echo "Preparation directives for OpenSuse 12.1"
+	@echo ""
+	@echo "If you want to install another version, you may use opensuseXXX_ACTION patern, where XXX is the version number: 12.1 -> 121"
+	@echo ""
+	@echo "Available version: 12.1"
+	@echo ""
+	@echo "opensuse_init: create the initial directory structure in the tftp server root directory"
+	@echo "opensuse_get: create the initial directory structure in the tftp server root directory"
+	@echo "opensuse_clean: create the initial directory structure in the tftp server root directory"
+	@echo "opensuse_distclean: create the initial directory structure in the tftp server root directory"
+	@echo ""
+
 opensuse: opensuse121
 
 opensuse_init: opensuse121_init
