@@ -36,54 +36,7 @@ include makefile.vars
 #	 @echo ""
 
 help:
-	@echo "### Debian"
-	@echo ""
-	@echo "Preparation directives for Debian 6: Squeeze"
-	@echo ""
-	@echo "If you want to install another version, you may use debianX_ACTION patern, where X is the version number: 6"
-	@echo ""
-	@echo "Available version: 5, 6, 7" # may use oldstable, stable, testing and unstable
-	@echo ""
-	@echo "debian_init: create the initial directory structure in the tftp server root directory"
-	@echo "debian_get: create the initial directory structure in the tftp server root directory"
-	@echo "debian_clean: create the initial directory structure in the tftp server root directory"
-	@echo "debian_distclean: create the initial directory structure in the tftp server root directory"
-	@echo ""
-	@echo "### OpenSuse"
-	@echo ""
-	@echo "Preparation directives for OpenSuse 12.1"
-	@echo ""
-	@echo "If you want to install another version, you may use opensuseXXX_ACTION patern, where XXX is the version number: 12.1 -> 121"
-	@echo ""
-	@echo "Available version: 12.1"
-	@echo ""
-	@echo "opensuse_init: create the initial directory structure in the tftp server root directory"
-	@echo "opensuse_get: create the initial directory structure in the tftp server root directory"
-	@echo "opensuse_clean: create the initial directory structure in the tftp server root directory"
-	@echo "opensuse_distclean: create the initial directory structure in the tftp server root directory"
-	@echo ""
-	@echo "### OpenBSD"
-	@echo ""
-	@echo "Preparation directives for OpenBSD 5.6"
-	@echo ""
-	@echo "If you want to install another version, you may use openbsdXX_ACTION patern, where XX is the version number: 5.1 -> 51"
-	@echo ""
-	@echo "Available version: 5.6"
-	@echo ""
-	@echo "openbsd_init: create the initial directory structure in the tftp server root directory"
-	@echo "openbsd_get: create the initial directory structure in the tftp server root directory"
-	@echo "openbsd_clean: create the initial directory structure in the tftp server root directory"
-	@echo "openbsd_distclean: create the initial directory structure in the tftp server root directory"
-	@echo ""
-	@echo "### memtest86+"
-	@echo ""
-	@echo "Preparation directives for memtest86+ v4.20"
-	@echo ""
-	@echo "memtest_init: create the initial directory structure in the tftp server root directory"
-	@echo "memtest_get: get the binary fils from internet and move it in the tftp server root directory"
-	@echo "memtest_clean: create the initial directory structure in the tftp server root directory"
-	@echo "memtest_distclean: create the initial directory structure in the tftp server root directory"
-	@echo ""
+	make -C conf/*.mk help
 
 clean:
 	rm -rf $(TOPDIR)/*~
@@ -158,40 +111,9 @@ tftp_srv:
 doc:
 	@echo "http://www.pcengines.ch/alix.htm for main page"
 
-############################################################################################
-################################# Debian ###################################################
-############################################################################################
 
--include debian.mk
+# ############################################################################################
+# ########################### Include Configuration files ####################################
+# ############################################################################################
 
-############################################################################################
-################################# OpenSuse #################################################
-############################################################################################
-
--include opensuse.mk
-
-############################################################################################
-################################# NetBSD ###################################################
-############################################################################################
-
--include netbsd.mk
-
-############################################################################################
-################################# FreeBSD ##################################################
-############################################################################################
-
--include freebsd.mk
-
-############################################################################################
-################################# OpenBSD ##################################################
-############################################################################################
-
--include openbsd.mk
-
-############################################################################################
-################################# memtest86+ ###############################################
-############################################################################################
-
--include memtest86.mk
-
-############################################################################################
+include conf/*.mk
