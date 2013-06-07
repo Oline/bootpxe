@@ -26,19 +26,20 @@ help: $(CONF_HELP_TARGET)
 
 clean:
 	rm -rf $(TOPDIR)/*~
-	rm -rf $(DIR_DOWNLOAD)
-	rm -rf $(DIR_TFTP_DISTRIB)
+	rm -rf $(DISK_IMG)
 
 distclean: clean
+	rm -rf $(DIR_TFTP_DISTRIB)
+	rm -rf $(DIR_TFTP_TOOLS)
 
 doc:
 	@echo "http://www.pcengines.ch/alix.htm for main page"
 
 test: dummy.img
-	qemu -hda ./dummy.img -net nic -net user -boot n -tftp srv_tftp_dir/ -bootp /pxelinux.0
+	qemu -hda ./$(DISK_IMG) -net nic -net user -boot n -tftp $(DIR_TFTP) -bootp /pxelinux.0
 
 dummy.img:
-	dd if=/dev/zero of=dummy.img bs=1M count=5
+	dd if=/dev/zero of=$(DISK_IMG) bs=1M count=5
 
 ############################################################################################
 ########################### Include Configuration files ####################################
