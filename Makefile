@@ -14,16 +14,13 @@
 #    de conserver un autre fichier de version par distrib/pour tout le système.
 #    (Un INDEX à la manière des ports FreeBSD).
 
-# ############################################################################################
-# ############################### Include variables ##########################################
-# ############################################################################################
+############################################################################################
+############################### Include variables ##########################################
+############################################################################################
 
 include makefile.vars
 
-# building the target names for help targets
-CONF_FILES=$(wildcard conf/*.mk)
-CONF_FILES_HELP=$(CONF_FILES:.mk=_help)
-CONF_HELP_TARGET=$(subst conf/,,$(CONF_FILES_HELP))
+############################################################################################
 
 help: $(CONF_HELP_TARGET)
 
@@ -38,12 +35,25 @@ doc:
 	@echo "http://www.pcengines.ch/alix.htm for main page"
 
 
-# ############################################################################################
-# ########################### Include Configuration files ####################################
-# ############################################################################################
+############################################################################################
+########################### Include Configuration files ####################################
+############################################################################################
 
 include conf/*.mk
 
+############################################################################################
+
+
+# # define local temporary file because ACL when launching on nfs
+# TMP_CFG     	= /tmp/cfg_pxe_alix2d3.tar.gz
+# # Warning, following line extracted for correct config in xinetd ...
+# # Please verify in your configuration
+# XINETD_SRV  	= /srv/tftp
+
+# DIR_DOWNLOAD 	= $(TOPDIR)/download
+# DIR_DISTRIB 	= $(DIR_DOWNLOAD)/distrib
+# NETBOOT_SQUEEZE = $(DIR_DOWNLOAD)/debian_netboot_squeeze_i386.tar.gz
+# NETBOOT_LENNY 	= $(DIR_DOWNLOAD)/debian_netboot_lenny_i386.tar.gz
 
 # load:
 # 	@mkdir -p $(DIR_DISTRIB)
@@ -108,3 +118,4 @@ include conf/*.mk
 # # in order to test it, please use atftp Debian package with following
 # # command
 # #  atftp --get --remote-file  pxelinux.0 --local-file  /tmp/ttt --verbose  srvtftp-2
+
