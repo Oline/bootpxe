@@ -34,6 +34,11 @@ distclean: clean
 doc:
 	@echo "http://www.pcengines.ch/alix.htm for main page"
 
+test: dummy.img
+	qemu -hda ./dummy.img -net nic -net user -boot n -tftp srv_tftp_dir/ -bootp /pxelinux.0
+
+dummy.img:
+	dd if=/dev/zero of=dummy.img bs=1M count=5
 
 ############################################################################################
 ########################### Include Configuration files ####################################
