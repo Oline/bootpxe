@@ -7,3 +7,6 @@
 
 - UBCD would be great
 - Partition Magic would be too
+
+- Tool used to generate pxe menu. Bad point is that it seem to be a remote only script using CGI...
+  https://github.com/tai/pxe-menu
