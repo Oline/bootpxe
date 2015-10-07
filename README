@@ -1,22 +1,31 @@
-To use these Makefiles, you must deploy a tftp server binary (depending on your 
-distribution). atftp or similar will do the job.
-You must also configure your DHCP server to allow bootp protocol, fill in your 
-"next-server" variable with the tftp server's IP address, and the boot file's 
-filename to send as the boot binary for the PXE clients
+BootPXE
+======
+**BootPXE** is a Makefile system to prepare a ready to use boot PXE server. The usage is explained like this:
 
-### Software requirements
+```
+$ make help
+$
+```
+
+To use these Makefiles, you must deploy a tftp server binary (depending on your
+distribution). atftp or similar will do the job.
+You must also configure your DHCP server to allow bootp protocol, fill in your
+"next-server" variable with the tftp server's IP address, and the boot file's
+filename to send as the boot binary for the PXE clients.
+
+## Software requirements
 
 - GNU make
 - wget
 
-### prerequis (need to be translated)
+## Version
+* Version X.Y
 
-- Hard drive space needed : XX MB (may be computed when a full download will be done)
+## Customisation
 
-### Howto use it
+If you want to have specific configurations, you must copy default (or default_serial) to a file named using the MAC address of the computer MAC controller and change the option from that file.
 
-make help
-
-### Configuration
-
-if you want to have specific configurations, you must copy default (or default_serial) to a file named using the MAC address of the computer MAC controller and change the option from that file.
+## Contact
+#### Developer : Sylvain Leroy
+* Homepage: http://www.unmondelibre.fr
+* e-mail: sylvain@unmondelibre.fr

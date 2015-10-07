@@ -5,8 +5,10 @@
 
 - Tests definition and implementation
 
+# Boot to add:
 - UBCD would be great
-- Partition Magic would be too
+- Partition Magic (or like) would be great too
+* (may be a better idea to extract utilities from it and run them separatly because no PXE version is existing without huge modifications)
 
-- Tool used to generate pxe menu. Bad point is that it seem to be a remote only script using CGI...
+- Tool that could be used to generate pxe menu. Bad point is that it seem to be a remote only script using CGI...
   https://github.com/tai/pxe-menu
