@@ -4,7 +4,6 @@ BootPXE
 
 ```
 $ make help
-$
 ```
 
 To use these Makefiles, you must deploy a tftp server binary (depending on your
@@ -19,7 +18,7 @@ filename to send as the boot binary for the PXE clients.
 - wget
 
 ## Version
-* Version X.Y
+* Version 0.2
 
 ## Customisation
 
